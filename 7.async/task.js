@@ -25,7 +25,12 @@ class AlarmClock {
     if (this.intervalId !== null){
       return
     }
-    this.intervalId = setInterval(this.alarmCollection.forEach(elem => (elem.time === this.getCurrentFormattedTime() && elem.canCall === true).map(elem.canCall = false).map(elem.callback)
+    this.intervalId = setInterval(this.alarmCollection.forEach(function(elem){
+      if (elem.time === this.getCurrentFormattedTime() && elem.canCall === true){
+        elem.canCall = false
+        elem.callback
+      }
+    }
     ))
   }
   stop(){
