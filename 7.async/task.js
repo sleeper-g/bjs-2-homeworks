@@ -25,10 +25,17 @@ class AlarmClock {
   start(){
     if (this.intervalId !== null){
       return
-    }
+    };
 
-    this.intervalId = setInterval(this.alarmCollection.forEach(elem => (elem.time === this.getCurrentFormattedTime() && elem.canCall) ? (elem.canCall = false, elem.callback()): elem))
-  }
+    this.alarmCollection.forEach(elem => {
+      if (elem.time === this.getCurrentFormattedTime() && elem.canCall){
+        elem.canCall = false;
+        setInterval(elem.callback, 1000);
+      }
+    })
+
+  };
+
   stop(){
     clearInterval(this.intervalId)
     this.intervalId = null;
