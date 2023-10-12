@@ -21,16 +21,15 @@ class AlarmClock {
       minute: "2-digit",
     }))
   }
-  start(){
-    if (this.intervalId !== null){
-      return
-    };
-    this.alarmCollection.forEach(elem => {
-      if (elem.time === this.getCurrentFormattedTime() && elem.canCall){
-        elem.canCall = false;
-      this.intervalId = setInterval(elem.callback, 1000);
-      }
-    })
+  start() {
+    if (!this.intervalId) {
+      this.intervalId = setInterval( () => this.alarmCollection.forEach(elem => {
+        if (elem.time === this.getCurrentFormattedTime() && elem.canCall) {
+          elem.canCall = false;
+          elem.callback();
+        }
+      }))
+    }
   };
   stop(){
     clearInterval(this.intervalId)
